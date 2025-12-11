@@ -1,55 +1,93 @@
 "use client";
 
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { useAuth } from "@/store/auth";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const { setUser } = useAuth();
   const router = useRouter();
+
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
-  const submit = async () => {
-    try {
-      setError("");
-      const res = await axios.post("/api/auth/login", form);
-      setUser(res.data.user);
+  const login = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
 
-      router.push(`/${res.data.user.role}`);
-    } catch (e: any) {
-      setError(e?.response?.data?.error || "Error");
+    try {
+      const res = await axios.get(
+        `http://localhost:4000/users?email=${form.email}`
+      );
+
+      const user = res.data[0];
+
+      if (!user) {
+        setError("Usuario no encontrado");
+        return;
+      }
+
+      if (user.password !== form.password) {
+        setError("Contraseña incorrecta");
+        return;
+      }
+
+      setUser(user);
+      router.push(`/${user.role}`);
+
+    } catch (error) {
+      console.log(error);
+      setError("Error en el servidor");
     }
   };
 
   return (
-    <div className="p-6 max-w-sm mx-auto">
-      <h1 className="text-xl mb-4">Login</h1>
+    <div className="flex justify-center">
+      <div className="grid grid-cols-2 w-300 h-screen">
+        <div className="flex items-center justify-center">
+          <form 
+            className="max-w-md mx-auto p-2 flex justify-center flex-col w-full"
+            onSubmit={login}
+          >
+            <div className="mb-4 space-y-5">
+              <label>Email</label>
+              <input
+                type="text"
+                placeholder="example@example.com"
+                className="w-full p-3 border rounded-lg bg-white 
+                focus:outline-none focus:ring-2 focus:ring-[#4880FF]"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
 
-      <input
-        className="border p-2 w-full mb-3"
-        placeholder="Email"
-        onChange={(e) =>
-          setForm({ ...form, email: e.target.value.toLowerCase().trim() })
-        }
-      />
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="********"
+                className="w-full p-3 border rounded-lg bg-white 
+                focus:outline-none focus:ring-2 focus:ring-[#4880FF]"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+              />
 
-      <input
-        className="border p-2 w-full mb-3"
-        placeholder="Password"
-        type="password"
-        onChange={(e) => setForm({ ...form, password: e.target.value.trim() })}
-      />
+              {error && (
+                <p className="text-red-600 font-bold text-sm">{error}</p>
+              )}
 
-      {error && <p className="text-red-500">{error}</p>}
+              <button
+                type="submit"
+                className="bg-blue-600 w-full border p-3 rounded-xl cursor-pointer 
+                hover:bg-[#4880FF] text-white font-bold mt-4 transform-border hover:scale-95"
+              >
+                Sign-in
+              </button>
+            </div>
+          </form>
+        </div>
 
-      <button
-        className="bg-blue-600 text-white px-4 py-2 rounded"
-        onClick={submit}
-      >
-        Login
-      </button>
+        <div className="flex items-center justify-center rounded-lg bg-blue-200"></div>
+      </div>
     </div>
   );
 }

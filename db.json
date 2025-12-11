@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Cliente Test",
+      "email": "cliente@example.com",
+      "password": "admin1234",
+      "role": "client"
+    },
+    {
+      "id": 2,
+      "name": "Agente Test",
+      "email": "agent@example.com",
+      "password": "admin1234",
+      "role": "agent"
+    }
+  ],
+  "tickets": [
+    {
+      "id": 1,
+      "title": "Error en login",
+      "description": "No puedo iniciar sesión",
+      "priority": "high",
+      "status": "open",
+      "createdBy": 1,
+      "assignedTo": null,
+      "createdAt": "2025-02-20T12:00:00",
+      "comments": [
+        {
+          "id": 1,
+          "user": "Agente 2",
+          "text": "Estoy revisando el caso",
+          "createdAt": "2025-02-20T14:00:00"
+        }
+      ]
+    },
+    {
+      "id": "bf56",
+      "title": "asdads",
+      "description": "asdas",
+      "priority": "medium",
+      "createdBy": "CLIENT_ID_TEMPORAL"
+    },
+    {
+      "id": "8d4b",
+      "title": "asdasd",
+      "description": "asdasd",
+      "priority": "high",
+      "createdBy": "CLIENT_ID_TEMPORAL"
+    }
+  ]
+}

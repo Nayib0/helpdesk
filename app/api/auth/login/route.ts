@@ -1,66 +1,30 @@
+import axios from "axios";
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/database";
-import { User } from "@/app/api/models/User";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
-  try {
-    await connectDB();
+  const { email, password } = await req.json();
 
-    const { email, password } = await req.json();
-    const { email, password } = await req.json();
+  const res = await axios.get(
+    `http://localhost:4000/users?email=${email}&password=${password}`
+  );
 
-console.log("🟢 FRONT ENVÍA:");
-console.log("email:", `"${email}"`);
-console.log("password:", `"${password}"`);
+  const users = res.data;
 
-
-    const user = await User.findOne({ email });
-
-    if (!user)
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch)
-      return NextResponse.json(
-        { error: "Incorrect password" },
-        { status: 401 }
-      );
-
-    const token = jwt.sign(
-      {
-        id: user._id,
-        role: user.role,
-        email: user.email,
-      },
-      process.env.JWT_SECRET!,
-      { expiresIn: "7d" }
-    );
-
-    const res = NextResponse.json({
-      message: "Logged in",
-      user: {
-        id: user._id,
-        name: user.name,
-        role: user.role,
-        email: user.email,
-      },
-    });
-
-    res.cookies.set("token", token, {
-      httpOnly: true,
-      path: "/",
-      maxAge: 7 * 24 * 60 * 60,
-    });
-
-    return res;
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  if (users.length === 0) {
+    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
+
+  const user = users[0];
+
+  const response = NextResponse.json({
+    message: "Logged in",
+    user
+  });
+
+  response.cookies.set("user", JSON.stringify(user), {
+    httpOnly: false,
+    path: "/"
+  });
+
+  return response;
 }
