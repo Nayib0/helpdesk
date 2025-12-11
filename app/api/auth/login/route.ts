@@ -1,15 +1,12 @@
+import axios from "axios";
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/database";
-import { User } from "@/app/api/models/User";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
-  try {
-    await connectDB();
+  const { email, password } = await req.json();
 
-    const { email, password } = await req.json();
-    const { email, password } = await req.json();
+console.log("🟢 FRONT ENVÍA:");
+console.log("email:", `"${email}"`);
+console.log("password:", `"${password}"`);
 
 
     const user = await User.findOne({ email });
