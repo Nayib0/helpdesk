@@ -11,10 +11,6 @@ export async function POST(req: Request) {
     const { email, password } = await req.json();
     const { email, password } = await req.json();
 
-console.log("🟢 FRONT ENVÍA:");
-console.log("email:", `"${email}"`);
-console.log("password:", `"${password}"`);
-
 
     const user = await User.findOne({ email });
 
