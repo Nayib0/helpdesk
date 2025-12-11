@@ -16,7 +16,6 @@ export default function ViewTicketAgentModal({ open, onClose, ticket, reload }: 
 
   if (!open || !ticket) return null;
 
-  // Cambiar estado del ticket
   const updateStatus = async (newStatus: string) => {
     await axios.patch(`http://localhost:4000/tickets/${ticket.id}`, {
       status: newStatus,
@@ -26,7 +25,6 @@ export default function ViewTicketAgentModal({ open, onClose, ticket, reload }: 
     onClose();
   };
 
-  // Agregar comentario
   const addComment = async () => {
     if (!comment.trim()) return;
 
@@ -65,7 +63,8 @@ export default function ViewTicketAgentModal({ open, onClose, ticket, reload }: 
           <p><span className="font-bold">Fecha:</span> {new Date(ticket.createdAt).toLocaleString()}</p>
         </div>
 
-        <hr className="border-neutral-700 my-3" />
+        <hr className="bord  // Cambiar estado del ticket
+er-neutral-700 my-3" />
 
         <h3 className="font-bold text-lg mb-2">Gestionar estado</h3>
 
