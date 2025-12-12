@@ -21,7 +21,7 @@
       "title": "Login error",
       "description": "Cannot log in",
       "priority": "high",
-      "status": "closed",
+      "status": "in_progress",
       "createdBy": 1,
       "assignedTo": null,
       "createdAt": "2025-02-20T12:00:00",
@@ -39,3 +39,35 @@
           "createdAt": "2025-02-20T15:00:00"
         }
       ]
+    },
+    {
+      "id": "2",
+      "title": "Page not loading",
+      "description": "The page is not loading correctly",
+      "priority": "medium",
+      "status": "closed",
+      "createdBy": 1,
+      "assignedTo": null,
+      "createdAt": "2025-02-20T16:00:00",
+      "comments": []
+    },
+    {
+      "id": "3",
+      "title": "Feature request",
+      "description": "Please add dark mode",
+      "priority": "low",
+      "status": "open",
+      "createdBy": 1,
+      "assignedTo": null,
+      "createdAt": "2025-02-21T10:00:00",
+      "comments": [
+        {
+          "id": 1765555201278,
+          "user": "Agent 1",
+          "text": "faltan detalles",
+          "createdAt": "2025-12-12T16:00:01.278Z"
+        }
+      ]
+    }
+  ]
+}
