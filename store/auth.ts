@@ -2,23 +2,29 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface User {
-  id: number;
-  email: string;
+  id: string;
   name: string;
+  email: string;
   role: "client" | "agent";
 }
 
 interface AuthState {
   user: User | null;
-  setUser: (u: User | null) => void;
+  setUser: (user: User | null) => void;
+  logout: () => void;
 }
 
 export const useAuth = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
-      setUser: (u) => set({ user: u }),
+
+      setUser: (user) => set({ user }),
+
+      logout: () => set({ user: null }),
     }),
-    { name: "auth" }
+    {
+      name: "auth-session", 
+    }
   )
 );
