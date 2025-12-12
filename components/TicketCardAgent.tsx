@@ -1,23 +1,93 @@
 "use client";
 
-import { Ticket } from "@/types/ticket";
+import axios from "axios";
+import { useState } from "react";
+import { useAuth } from "@/store/auth";
+import { useRouter } from "next/navigation";
 
-export default function TicketCard({ ticket, onClick }: { ticket: Ticket; onClick: () => void }) {
+export default function LoginPage() {
+  const { setUser } = useAuth();
+  const router = useRouter();
+
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const login = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const res = await axios.get(
+        `http://localhost:4000/users?email=${form.email}`
+      );
+
+      const user = res.data[0];
+
+      if (!user) {
+        setError("User not found");
+        setIsLoading(false);
+        return;
+      }
+
+      if (user.password !== form.password) {
+        setError("Incorrect password");
+        setIsLoading(false);
+        return;
+      }
+
+      setUser(user);
+      router.push(`/${user.role}`);
+    } catch (error) {
+      setError("Server error");
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div
-      className="p-4 bg-neutral-800 rounded cursor-pointer hover:bg-neutral-700"
-      onClick={onClick}
-    >
-      <h2 className="text-lg font-bold">{ticket.title}</h2>
+    <div className="flex justify-center">
+      <div className="grid grid-cols-2 w-300 h-screen">
+        <div className="flex items-center justify-center">
+          <form
+            className="max-w-md mx-auto p-2 flex justify-center flex-col w-full"
+            onSubmit={login}
+          >
+            <div className="mb-4 space-y-5">
+              <label>Email</label>
+              <input
+                type="text"
+                placeholder="example@example.com"
+                className="w-full p-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#4880FF]"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
 
-      <p className="opacity-70">{ticket.description}</p>
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="********"
+                className="w-full p-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#4880FF]"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+              />
 
-      <div className="mt-2 text-sm">
-        <span className="text-blue-400">Prioridad:</span> {ticket.priority}
-      </div>
+              {error && (
+                <p className="text-red-600 font-bold text-sm">{error}</p>
+              )}
 
-      <div className="text-sm">
-        <span className="text-blue-400">Estado:</span> {ticket.status}
+              <button
+                type="submit"
+                className="bg-blue-600 w-full border p-3 rounded-xl cursor-pointer hover:bg-[#4880FF] text-white font-bold mt-4 transform-border hover:scale-95"
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading..." : "Sign In"}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div className="flex items-center justify-center rounded-lg bg-blue-200"></div>
       </div>
     </div>
   );

@@ -11,34 +11,50 @@ interface Props {
 export default function TicketCard({ ticket, onClick }: Props) {
   const priorityColor =
     ticket.priority === "high"
-      ? "red"
+      ? "green"
       : ticket.priority === "medium"
       ? "yellow"
-      : "green";
+      : "red";
 
   const statusColor =
     ticket.status === "open"
-      ? "blue"
+      ? "green"
       : ticket.status === "in_progress"
       ? "yellow"
-      : "green";
+      : "red";
 
   return (
     <div
       onClick={onClick}
-      className="p-4 bg-neutral-900 border border-neutral-700 rounded cursor-pointer hover:bg-neutral-800 transition flex flex-col gap-2"
+      className="
+        p-4
+        bg-gray-500 
+        border border-white/20 
+        backdrop-blur-md 
+        rounded-xl 
+        cursor-pointer 
+        transition
+        hover:bg-gray-500/50
+        hover:shadow-[0_0_15px_rgba(80,150,255,0.25)]
+        flex flex-col gap-2 
+      "
     >
-      <div className="flex justify-between">
-        <h3 className="font-bold text-lg">{ticket.title}</h3>
+      <div className="flex justify-between items-center">
+        <h3 className="font-bold text-2xl text-white drop-shadow-sm">
+          {ticket.title}
+        </h3>
+
         <Badge text={ticket.priority} color={priorityColor} />
       </div>
 
-      <p className="text-sm opacity-80 line-clamp-2">{ticket.description}</p>
+      <p className="text-sm text-white/90 ">
+        {ticket.description}
+      </p>
 
-      <div className="flex justify-between items-center mt-2">
+      <div className="flex justify-between items-center pt-1 border-t border-white/10">
         <Badge text={ticket.status} color={statusColor} />
 
-        <span className="text-xs opacity-60">
+        <span className="text-xs text-white">
           {new Date(ticket.createdAt).toLocaleDateString()}
         </span>
       </div>

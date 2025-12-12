@@ -3,15 +3,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import TicketCard from "@/components/TicketCard";
-import ViewAgentTicketModal from "@/components/ViewTicketAgentModal"
+import ViewAgentTicketModal from "@/components/ViewTicketAgentModal";
+import CreateTicketModal from "@/components/CreateTicketModal";
 import { Ticket } from "@/types/ticket";
-
-
 
 export default function AgentDashboard() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [viewOpen, setViewOpen] = useState(false);
   const [selected, setSelected] = useState<Ticket | null>(null);
+  const [openCreate, setOpenCreate] = useState(false);
 
   const [statusFilter, setStatusFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -36,38 +36,60 @@ export default function AgentDashboard() {
   });
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Panel del Agente</h1>
+    <div className="p-6 max-w-5xl mx-auto rounded-lg bg-[#E9EEF5] shadow-lg border border-white">
 
-      <div className="flex gap-3 mb-4">
+      <div className="flex justify-between items-center mb-6">
+        <h1
+          className="text-3xl font-bold text-[#3A7BD5]
+          bg-gradient-to-r from-[#5EB3F6] to-[#3A7BD5]
+          text-white px-6 py-3 rounded-lg shadow-md"
+        >
+          Agent Panel
+        </h1>
+
+        <button
+          onClick={() => setOpenCreate(true)}
+          className="
+            bg-[#3A7BD5] hover:bg-[#5EB3F6]
+            text-white font-bold px-4 py-2 rounded-md 
+            shadow-md border border-white cursor-pointer
+            hover:brightness-110 active:scale-95
+          "
+        >
+          + Create Ticket
+        </button>
+      </div>
+
+      <div className="flex gap-3 mb-6">
+
         <select
-          className="bg-neutral-800 p-2 rounded"
+          className="bg-white border border-[#d0d7e2] p-2 rounded-md shadow-sm text-neutral-700"
           onChange={(e) => setStatusFilter(e.target.value)}
         >
-          <option value="all">Todos</option>
-          <option value="open">Abiertos</option>
-          <option value="in_progress">En progreso</option>
-          <option value="closed">Cerrados</option>
+          <option value="all">All</option>
+          <option value="open">Open</option>
+          <option value="in_progress">In Progress</option>
+          <option value="closed">Closed</option>
         </select>
 
         <select
-          className="bg-neutral-800 p-2 rounded"
+          className="bg-white border border-[#d0d7e2] p-2 rounded-md shadow-sm text-neutral-700"
           onChange={(e) => setPriorityFilter(e.target.value)}
         >
-          <option value="all">Cualquier prioridad</option>
-          <option value="low">Baja</option>
-          <option value="medium">Media</option>
-          <option value="high">Alta</option>
+          <option value="all">Priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
         </select>
 
         <input
-          className="bg-neutral-800 p-2 rounded flex-1"
-          placeholder="Buscar ticket..."
+          className="flex-1 bg-white border border-[#d0d7e2] p-2 rounded-md shadow-sm text-neutral-700"
+          placeholder="Search tickets..."
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      <div className="grid gap-3">
+      <div className="grid gap-4">
         {filtered.map((t) => (
           <TicketCard
             key={t.id}
@@ -86,6 +108,15 @@ export default function AgentDashboard() {
         ticket={selected}
         reload={loadTickets}
       />
+
+      <CreateTicketModal
+        open={openCreate}
+        onClose={() => setOpenCreate(false)}
+        reload={loadTickets}
+        userId="AGENT_ID_TEMPORAL"
+        onCreated={(t) => setTickets([t, ...tickets])}
+      />
+
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default function AddComment({ ticket, reload }: Props) {
 
     const newComment = {
       id: Date.now(),
-      user: "Agente 2",
+      user: "Agent 2",
       text: comment,
       createdAt: new Date().toISOString(),
     };
@@ -34,7 +34,7 @@ export default function AddComment({ ticket, reload }: Props) {
     <div className="mt-4">
       <textarea
         className="w-full p-2 bg-neutral-800 rounded"
-        placeholder="Escribe un comentario..."
+        placeholder="Write a comment..."
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
@@ -43,7 +43,7 @@ export default function AddComment({ ticket, reload }: Props) {
         className="bg-blue-600 w-full py-2 rounded mt-2"
         onClick={addComment}
       >
-        Agregar comentario
+        Add comment
       </button>
     </div>
   );

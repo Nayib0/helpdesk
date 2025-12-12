@@ -24,12 +24,12 @@ export default function LoginPage() {
       const user = res.data[0];
 
       if (!user) {
-        setError("Usuario no encontrado");
+        setError("User not found");
         return;
       }
 
       if (user.password !== form.password) {
-        setError("Contraseña incorrecta");
+        setError("Incorrect password");
         return;
       }
 
@@ -38,55 +38,123 @@ export default function LoginPage() {
 
     } catch (error) {
       console.log(error);
-      setError("Error en el servidor");
+      setError("Server error");
     }
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="grid grid-cols-2 w-300 h-screen">
-        <div className="flex items-center justify-center">
-          <form 
-            className="max-w-md mx-auto p-2 flex justify-center flex-col w-full"
+    <div
+      className="
+        min-h-screen flex items-center justify-center
+        
+      "
+    >
+      {/* subtle dark overlay */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+
+      <div
+        className="
+          relative z-10
+          w-[820px] h-[480px]
+          grid grid-cols-2
+          rounded-2xl overflow-hidden
+          shadow-[0_0_40px_rgba(0,0,0,0.45)]
+          bg-white/10 backdrop-blur-xl
+        "
+      >
+        {/* LEFT PANEL */}
+        <div className="flex items-center justify-center bg-white/60 backdrop-blur-xl p-10">
+          <form
             onSubmit={login}
+            className="w-[85%] space-y-6"
           >
-            <div className="mb-4 space-y-5">
-              <label>Email</label>
+            <h1
+              className="
+                text-3xl font-extrabold text-[#2E74FF]
+                drop-shadow-[0_2px_2px_rgba(0,0,0,0.2)]
+                text-center
+              "
+            >
+              Welcome Back
+            </h1>
+
+            <div className="space-y-1">
+              <label className="text-sm text-black font-semibold">
+                Email
+              </label>
               <input
                 type="text"
-                placeholder="example@example.com"
-                className="w-full p-3 border rounded-lg bg-white 
-                focus:outline-none focus:ring-2 focus:ring-[#4880FF]"
                 value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                placeholder="example@hotmail.com"
+                onChange={(e) =>
+                  setForm({ ...form, email: e.target.value })
+                }
+                className="
+                  w-full p-3 rounded-lg bg-white/80
+                  border border-[#9bb4e1]
+                  focus:ring-2 focus:ring-[#5EB3F6]
+                  focus:outline-none
+                  shadow-inner
+                "
               />
+            </div>
 
-              <label>Password</label>
+            <div className="space-y-1">
+              <label className="text-sm text-black font-semibold">
+                Password
+              </label>
               <input
                 type="password"
-                placeholder="********"
-                className="w-full p-3 border rounded-lg bg-white 
-                focus:outline-none focus:ring-2 focus:ring-[#4880FF]"
                 value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                placeholder="********"
+                onChange={(e) =>
+                  setForm({ ...form, password: e.target.value })
+                }
+                className="
+                  w-full p-3 rounded-lg bg-white/80
+                  border border-[#9bb4e1]
+                  focus:ring-2 focus:ring-[#5EB3F6]
+                  focus:outline-none
+                  shadow-inner
+                "
               />
-
-              {error && (
-                <p className="text-red-600 font-bold text-sm">{error}</p>
-              )}
-
-              <button
-                type="submit"
-                className="bg-blue-600 w-full border p-3 rounded-xl cursor-pointer 
-                hover:bg-[#4880FF] text-white font-bold mt-4 transform-border hover:scale-95"
-              >
-                Sign-in
-              </button>
             </div>
+
+            {error && (
+              <p className="text-red-600 text-center font-bold text-sm">
+                {error}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="
+                w-full py-3 rounded-xl font-semibold text-white 
+                bg-gradient-to-b from-[#6FB1FC] to-[#3A7BD5]
+                shadow-[0_4px_10px_rgba(0,0,0,0.25)]
+                hover:brightness-110 active:scale-95 transition-all
+              "
+            >
+              Sign In
+            </button>
           </form>
         </div>
 
-        <div className="flex items-center justify-center rounded-lg bg-blue-200"></div>
+        {/* RIGHT PANEL – “Windows Vista Glow” */}
+        <div
+          className="
+            relative flex items-center justify-center
+            bg-gradient-to-br from-[#4D9FFF]/70 to-[#3A5CD5]/70
+          "
+        >
+         
+
+          <div className="relative z-10 text-center">
+            <h2 className="text-white text-2xl font-bold drop-shadow-xl">
+              HelpDesk System
+            </h2>
+          </div>
+        </div>
       </div>
     </div>
   );
