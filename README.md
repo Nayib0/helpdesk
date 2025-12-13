@@ -1,36 +1,201 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#  HelpDesk System
 
-## Getting Started
+A **HelpDesk ticket management system** built with **Next.js and TypeScript**, designed to simulate a real-world technical support platform with **role-based access control**.
 
-First, run the development server:
+The application allows **Clients** and **Agents** to interact with tickets in a controlled and structured way, including authentication, ticket management, comments, and status tracking.
+
+---
+
+##  Preview
+
+* Login screen with role-based access
+* Client dashboard
+* Agent dashboard
+* Ticket creation and management
+* Modern and responsive UI
+
+---
+
+##  Features
+
+###  Authentication
+
+* Login with email and password
+* Role-based access control
+* Automatic redirection based on user role
+* Protected routes
+
+### 👤 Client
+
+* Create support tickets
+* View own tickets
+* Check ticket status and priority
+* Add comments to tickets
+
+### 🧑‍💼 Agent
+
+* View all tickets
+* Update ticket status (open / in_progress / closed)
+* View ticket priority
+* Add comments
+* Access ticket history
+
+---
+
+## 🧰 Tech Stack
+
+* **Next.js 14** (App Router)
+* **React**
+* **TypeScript**
+* **Tailwind CSS**
+* **Zustand** (global state management)
+* **Axios**
+* **JSON Server** (mock backend)
+
+---
+
+## 🏗️ Project Architecture
+
+* Uses **Next.js App Router**
+* Views separated by user role:
+
+  * `/login`
+  * `/client`
+  * `/agent`
+* Authentication state managed with Zustand
+* Reusable and modular components
+* Modal-based UI for ticket creation and viewing
+* Clean and scalable design
+
+---
+
+##  Project Structure
+
+```bash
+app/
+├── login/
+├── client/
+├── agent/
+├── api/
+├── layout.tsx
+├── page.tsx
+
+components/
+├── TicketCard.tsx
+├── TicketCardAgent.tsx
+├── CreateTicketModal.tsx
+├── ViewTicketAgentModal.tsx
+├── AddComment.tsx
+├── ui/
+│   ├── Badge.tsx
+│   └── LogoutButton.tsx
+
+store/
+├── auth.ts
+
+types/
+├── ticket.ts
+```
+
+---
+
+##  Authentication & Access Control
+
+* Users are validated against a **JSON Server** mock database
+* On successful login:
+
+  * User data is stored in the global state (Zustand)
+  * The user is redirected based on their role
+* Route protection ensures:
+
+  * Clients cannot access Agent routes
+  * Agents cannot access Client routes
+
+---
+
+## 🗄️ Mock Database (JSON Server)
+
+The project uses **JSON Server** as a simulated backend.
+
+### Main entities:
+
+* **users**
+* **tickets**
+
+### User example:
+
+```json
+{
+  "id": "1",
+  "email": "agent@example.com",
+  "password": "agent1234",
+  "role": "agent"
+}
+```
+
+### Ticket example:
+
+```json
+{
+  "id": 1,
+  "title": "System access issue",
+  "description": "I can't log into my account",
+  "status": "open",
+  "priority": "high",
+  "comments": []
+}
+```
+
+---
+
+##  Test Credentials
+
+###  Agent
+
+* **Email:** [agent@example.com](mailto:agent@example.com)
+* **Password:** agent1234
+
+###  Client
+
+* **Email:** [client@example.com](mailto:client@example.com)
+* **Password:** client1234
+
+---
+
+##  Installation & Setup
+
+1️⃣ Clone the repository:
+
+```bash
+git clone https://github.com/Nayib0/helpdesk.git
+```
+
+2️⃣ Install dependencies:
+
+```bash
+npm install
+```
+
+3️⃣ Start JSON Server:
+
+```bash
+npx json-server --watch db.json --port 4000
+```
+
+4️⃣ Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 👨‍💻 Author
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ **Nayib Obeso**

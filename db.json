@@ -16,58 +16,6 @@
     }
   ],
   "tickets": [
-    {
-      "id": "cbae",
-      "title": "primera de muchos",
-      "description": "segunda",
-      "priority": "medium",
-      "createdBy": "1",
-      "createdAt": "2025-12-12T22:25:00.000Z",
-      "status": "open",
-      "comments": [
-        {
-          "id": 1765583581765,
-          "user": "Agent 1",
-          "text": "sala",
-          "createdAt": "2025-12-12T23:53:01.765Z"
-        },
-        {
-          "id": 1765583602673,
-          "user": "Agent 1",
-          "text": "sala",
-          "createdAt": "2025-12-12T23:53:22.673Z"
-        }
-      ]
-    },
-    {
-      "id": "4418",
-      "title": "solo",
-      "description": "as",
-      "priority": "medium",
-      "createdBy": "1",
-      "createdAt": "2025-12-12T22:32:34.343Z",
-      "status": "closed",
-      "comments": []
-    },
-    {
-      "id": "7353",
-      "title": "hola bebe",
-      "description": "baba",
-      "priority": "medium",
-      "createdBy": "1",
-      "createdAt": "2025-12-12T23:31:14.670Z",
-      "status": "open",
-      "comments": []
-    },
-    {
-      "id": "3487",
-      "title": "hola",
-      "description": "ga",
-      "priority": "medium",
-      "createdBy": "AGENT_ID_TEMPORAL",
-      "createdAt": "2025-12-12T23:42:29.185Z",
-      "status": "open",
-      "comments": []
-    }
+    
   ]
 }
