@@ -24,6 +24,7 @@ export default function AgentDashboard() {
 
   useEffect(() => {
     loadTickets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filtered = tickets.filter((t) => {
@@ -36,60 +37,51 @@ export default function AgentDashboard() {
   });
 
   return (
-    <div className="p-6 max-w-5xl mx-auto rounded-lg bg-[#E9EEF5] shadow-lg border border-white">
-
-      <div className="flex justify-between items-center mb-6">
-        <h1
-          className="text-3xl font-bold text-[#3A7BD5]
-          bg-gradient-to-r from-[#5EB3F6] to-[#3A7BD5]
-          text-white px-6 py-3 rounded-lg shadow-md"
-        >
-          Agent Panel
+    <div className="p-6 max-w-4xl mx-auto rounded-lg bg-gray-100 shadow-xl border-4 border-gray-400 mt-5">
+      <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-3 rounded-t-md shadow-inner border-b-4 border-blue-900">
+        <h1 className="text-2xl font-bold tracking-wide uppercase">
+          Agent Console 
         </h1>
 
         <button
           onClick={() => setOpenCreate(true)}
           className="
-            bg-[#3A7BD5] hover:bg-[#5EB3F6]
-            text-white font-bold px-4 py-2 rounded-md 
-            shadow-md border border-white cursor-pointer
-            hover:brightness-110 active:scale-95
-          "
+      bg-gradient-to-b from-green-400 to-green-600 text-gray-900 font-extrabold px-4 py-2 rounded-full shadow-md border-2 border-green-700 hover:brightness-110 active:scale-95 transition-all uppercase text-sm
+     cursor-pointer"
         >
-          + Create Ticket
+          + NEW TICKET
         </button>
       </div>
 
-      <div className="flex gap-3 mb-6">
-
+      <div className="flex gap-3 mb-6 p-4 bg-gray-200 border border-gray-300 rounded-md shadow-inner">
         <select
-          className="bg-white border border-[#d0d7e2] p-2 rounded-md shadow-sm text-neutral-700"
+          className="bg-white border-2 border-gray-400 p-2 rounded-md shadow-sm text-gray-800 cursor-pointer focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition-all"
           onChange={(e) => setStatusFilter(e.target.value)}
         >
-          <option value="all">All</option>
-          <option value="open">Open</option>
-          <option value="in_progress">In Progress</option>
-          <option value="closed">Closed</option>
+          <option value="all">Status: All</option>
+          <option value="open">Status: Open</option>
+          <option value="in_progress">Status: In Progress</option>
+          <option value="closed">Status: Closed</option>
         </select>
 
         <select
-          className="bg-white border border-[#d0d7e2] p-2 rounded-md shadow-sm text-neutral-700"
+          className="bg-white border-2 border-gray-400 p-2 rounded-md shadow-sm text-gray-800 cursor-pointer focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition-all"
           onChange={(e) => setPriorityFilter(e.target.value)}
         >
-          <option value="all">Priority</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
+          <option value="all">Priority: All</option>
+          <option value="low">Priority: Low</option>
+          <option value="medium">Priority: Medium</option>
+          <option value="high">Priority: High</option>
         </select>
 
         <input
-          className="flex-1 bg-white border border-[#d0d7e2] p-2 rounded-md shadow-sm text-neutral-700"
-          placeholder="Search tickets..."
+          className="flex-1 bg-white border-2 border-gray-400 p-2 rounded-md shadow-inner text-gray-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition-all"
+          placeholder="Search tickets by title or description..."
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-4 bg-white p-4 border border-gray-300 rounded-md shadow-inner">
         {filtered.map((t) => (
           <TicketCard
             key={t.id}
@@ -116,7 +108,6 @@ export default function AgentDashboard() {
         userId="AGENT_ID_TEMPORAL"
         onCreated={(t) => setTickets([t, ...tickets])}
       />
-
     </div>
   );
 }

@@ -2,33 +2,45 @@
 
 import { useAuth } from "@/store/auth";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function LogoutButton() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleLogout = () => {
+    toast.error("Logged out successfully");
     logout();
-    router.push("/login");
+    setTimeout(() => {
+      router.push("/login");
+    }, 200);
   };
 
+  if (!mounted || !user) return null;
+
   return (
-    <button
-      onClick={handleLogout}
-      className="
-        px-4 py-2
-        bg-gradient-to-b from-[#e7ecf5] to-[#cfd7e4]
-        text-[#2c3e55]
-        font-semibold
-        rounded-md
-        border border-[#b8c2d3]
-        shadow-[0_2px_4px_rgba(0,0,0,0.2)]
-        hover:brightness-110
-        active:scale-95
-        transition-all
-      "
-    >
-      Logout
-    </button>
+    <div className="fixed top-6 right-4 z-50 bg-gray-100 rounded-md shadow-lg px-4 py-2 border-2 border-gray-400 flex items-center gap-5">
+      <div className="text-sm">
+        <p className="font-extrabold text-gray-800 tracking-wide">
+          {user.name}
+        </p>
+        <p className="text-xs text-gray-600 capitalize italic">
+          Access Level: {user.role}
+        </p>
+      </div>
+      <button
+        onClick={handleLogout}
+        className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 border-b-4 border-red-900 hover:border-red-700 active:border-b-0 active:translate-y-0.5 shadow-md text-white font-extrabold px-4 py-2 rounded-md transition-all uppercase text-sm cursor-pointer"
+      >
+        LOGOUT
+      </button>
+    </div>
   );
 }

@@ -27,34 +27,32 @@ export default function TicketCard({ ticket, onClick }: Props) {
     <div
       onClick={onClick}
       className="
-        p-4
-        bg-gray-500 
-        border border-white/20 
-        backdrop-blur-md 
-        rounded-xl 
-        cursor-pointer 
-        transition
-        hover:bg-gray-500/50
-        hover:shadow-[0_0_15px_rgba(80,150,255,0.25)]
-        flex flex-col gap-2 
-      "
+    p-4
+    // Estilo 2003: Fondo gris claro, borde definido y sombra para dar profundidad
+    bg-white 
+    border-2 border-gray-400 
+    rounded-md 
+    shadow-md
+    cursor-pointer 
+    transition-all
+    // Hover: Borde azul brillante para interacción 
+    hover:border-blue-500
+    hover:shadow-lg
+    flex flex-col gap-2 
+   "
     >
       <div className="flex justify-between items-center">
-        <h3 className="font-bold text-2xl text-white drop-shadow-sm">
-          {ticket.title}
-        </h3>
+        <h3 className="font-bold text-xl text-gray-800">{ticket.title}</h3>
 
         <Badge text={ticket.priority} color={priorityColor} />
       </div>
 
-      <p className="text-sm text-white/90 ">
-        {ticket.description}
-      </p>
+      <p className="text-sm text-gray-700 ">{ticket.description}</p>
 
-      <div className="flex justify-between items-center pt-1 border-t border-white/10">
+      <div className="flex justify-between items-center pt-2 border-t border-gray-300 mt-1">
         <Badge text={ticket.status} color={statusColor} />
 
-        <span className="text-xs text-white">
+        <span className="text-xs text-gray-600 italic">
           {new Date(ticket.createdAt).toLocaleDateString()}
         </span>
       </div>

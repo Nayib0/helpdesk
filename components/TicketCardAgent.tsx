@@ -74,15 +74,7 @@ export default function LoginPage() {
 
               {error && (
                 <p className="text-red-600 font-bold text-sm">{error}</p>
-              )}
-
-              <button
-                type="submit"
-                className="bg-blue-600 w-full border p-3 rounded-xl cursor-pointer hover:bg-[#4880FF] text-white font-bold mt-4 transform-border hover:scale-95"
-                disabled={isLoading}
-              >
-                {isLoading ? "Loading..." : "Sign In"}
-              </button>
+              )}  
             </div>
           </form>
         </div>

@@ -10,7 +10,12 @@ interface ViewTicketModalProps {
   reload: () => void;
 }
 
-export default function ViewTicketModal({ open, onClose, ticket, reload }: ViewTicketModalProps) {
+export default function ViewTicketModal({
+  open,
+  onClose,
+  ticket,
+  reload,
+}: ViewTicketModalProps) {
   if (!open || !ticket) return null;
 
   const updateStatus = async (newStatus: string) => {
@@ -23,58 +28,90 @@ export default function ViewTicketModal({ open, onClose, ticket, reload }: ViewT
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-200/50 flex justify-center items-center">
-      <div className="bg-neutral-900 p-6  w-96 border border-neutral-700 rounded-2xl">
-        
-        <h2 className="text-2xl font-bold mb-3 text-white ">{ticket.title}</h2>
-
-        <p className="opacity-90 text-xl text-white">{ticket.description}</p>
-
-        <div className="mt-3 space-y-1 text-sm">
-          <p className="text-white ml-3"><span className="text-blue-400 font-semibold">Status:</span> {ticket.status}</p>
-          <p className="text-white ml-3"><span className="text-blue-400 font-semibold">Priority:</span> {ticket.priority}</p>
-          <p className="text-white ml-3"><span className="text-blue-400 font-semibold">Created by:</span> {ticket.createdBy}</p>
-          <p className="text-white ml-3"><span className="text-blue-400 font-semibold">Date:</span> {new Date(ticket.createdAt).toLocaleString()}</p>
+    <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm flex justify-center items-center p-4">
+      {/* Contenedor Principal: Estilo de ventana de diálogo de sistema */}
+      <div className="bg-gray-100 w-full max-w-sm rounded-lg shadow-2xl border-4 border-gray-400 overflow-hidden">
+        {/* Header: Barra de título de la ventana */}
+        <div className="flex justify-between items-center bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2 border-b-2 border-blue-900">
+          <h2 className="text-lg font-bold uppercase tracking-wide">
+            TICKET DETAIL
+          </h2>
+          <button
+            className="text-white hover:text-red-300 font-extrabold text-xl cursor-pointer"
+            onClick={onClose}
+          >
+            X
+          </button>
         </div>
 
-        <div className="mt-4 grid gap-2">
+        {/* Contenido del Modal */}
+        <div className="p-6">
+          <h2 className="text-xl font-extrabold mb-3 text-gray-800 border-b border-gray-300 pb-1">
+            {ticket.title}
+          </h2>
 
-          {ticket.status !== "open" && (
-            <button
-              className="bg-green-600 w-full py-2 rounded text-white cursor-pointer hover:bg-green-400"
-              onClick={() => updateStatus("open")}
-            >
-              Mark as Open
-            </button>
-          )}
+          <p className="text-gray-700 mb-4">{ticket.description}</p>
 
-          {ticket.status !== "in_progress" && (
-            <button
-              className="bg-yellow-600 w-full py-2 rounded text-white cursor-pointer hover:bg-yellow-400"
-              onClick={() => updateStatus("in_progress")}
-            >
-              Mark in Progress
-            </button>
-          )}
+          <div className="mt-3 space-y-1 text-sm p-3 bg-white border-2 border-gray-300 rounded-md shadow-inner">
+            <p className="text-gray-800">
+              <span className="text-blue-600 font-bold">Status:</span>{" "}
+              <span className="uppercase">{ticket.status}</span>
+            </p>
+            <p className="text-gray-800">
+              <span className="text-blue-600 font-bold">Priority:</span>{" "}
+              <span className="uppercase">{ticket.priority}</span>
+            </p>
+            <p className="text-gray-800">
+              <span className="text-blue-600 font-bold">Created by:</span>{" "}
+              {ticket.createdBy}
+            </p>
+            <p className="text-gray-600 text-xs">
+              <span className="font-bold">Date:</span>{" "}
+              {new Date(ticket.createdAt).toLocaleString()}
+            </p>
+          </div>
 
-          {ticket.status !== "closed" && (
-            <button
-              className="bg-red-600 w-full py-2 rounded text-white cursor-pointer hover:bg-red-400"
-              onClick={() => updateStatus("closed")}
-            >
-              Mark as Closed
-            </button>
-          )}
+          <div className="mt-4 grid gap-2 border-t border-gray-300 pt-4">
+            <p className="text-sm font-bold text-gray-800 uppercase tracking-wider">
+              Change Status
+            </p>
 
+            {ticket.status !== "open" && (
+              <button
+                // Botón 3D con color vibrante
+                className="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 border-b-4 border-green-700 hover:border-green-500 active:border-b-0 active:translate-y-0.5 shadow-md w-full py-2 rounded-md text-gray-900 font-bold transition-all uppercase text-sm cursor-pointer"
+                onClick={() => updateStatus("open")}
+              >
+                Mark as Open
+              </button>
+            )}
+
+            {ticket.status !== "in_progress" && (
+              <button
+                className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 border-b-4 border-yellow-700 hover:border-yellow-500 active:border-b-0 active:translate-y-0.5 shadow-md w-full py-2 rounded-md text-gray-900 font-bold transition-all uppercase text-sm cursor-pointer"
+                onClick={() => updateStatus("in_progress")}
+              >
+                Mark in Progress
+              </button>
+            )}
+
+            {ticket.status !== "closed" && (
+              <button
+                className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 border-b-4 border-red-700 hover:border-red-500 active:border-b-0 active:translate-y-0.5 shadow-md w-full py-2 rounded-md text-gray-900 font-bold transition-all uppercase text-sm cursor-pointer"
+                onClick={() => updateStatus("closed")}
+              >
+                Mark as Closed
+              </button>
+            )}
+          </div>
+
+          <button
+            className="mt-4 w-full py-2 rounded-md bg-gray-300 hover:bg-gray-400 border-b-4 border-gray-500 hover:border-gray-400 active:border-b-0 active:translate-y-0.5 shadow-md text-gray-900 font-extrabold uppercase transition-all"
+            onClick={onClose}
+          >
+            Close Window
+          </button>
         </div>
-
-        <button
-          className="mt-4 w-full py-2 rounded bg-neutral-700 hover:bg-neutral-500 cursor-pointer"
-          onClick={onClose}
-        >
-          Close
-        </button>
-
       </div>
     </div>
   );

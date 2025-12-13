@@ -11,7 +11,12 @@ interface Props {
   reload: () => void;
 }
 
-export default function ViewTicketAgentModal({ open, onClose, ticket, reload }: Props) {
+export default function ViewTicketAgentModal({
+  open,
+  onClose,
+  ticket,
+  reload,
+}: Props) {
   const [comment, setComment] = useState("");
 
   if (!open || !ticket) return null;
@@ -44,87 +49,114 @@ export default function ViewTicketAgentModal({ open, onClose, ticket, reload }: 
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex justify-center items-center p-4 text-white">
-      <div className="bg-neutral-900 w-full max-w-lg p-6 rounded shadow-lg border border-neutral-700">
-
-        <div className="flex justify-between items-center mb-4 ">
-          <h2 className="text-xl font-bold">{ticket.title}</h2>
-          <button className="text-red-400 text-xl cursor-pointer" onClick={onClose}>
-            ✖
-          </button>
-        </div>
-
-        <div className="space-y-2 mb-4">
-          <p className="text-sm opacity-80">{ticket.description}</p>
-
-          <p><span className="font-bold text-blue-400">Status:</span> {ticket.status}</p>
-          <p><span className="font-bold text-blue-400">Priority:</span> {ticket.priority}</p>
-          <p><span className="font-bold text-blue-400">Created by:</span> {ticket.createdBy}</p>
-          <p><span className="font-bold text-blue-400">Date:</span> {new Date(ticket.createdAt).toLocaleString()}</p>
-        </div>
-
-        <hr className="border-neutral-700 my-3" />
-        <div className="flex flex-col items-center"> 
-
-        <h3 className="font-bold text-lg mb-2">Manage status</h3>
-        <div className="flex gap-2 mb-4">
+    <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm flex justify-center items-center p-4">
+      {/* Contenedor Principal: Estilo de ventana de diálogo de sistema */}
+      <div className="bg-gray-100 w-full max-w-lg rounded-lg shadow-2xl border-4 border-gray-400 overflow-hidden">
+        {/* Header: Barra de título de la ventana */}
+        <div className="flex justify-between items-center bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2 border-b-2 border-blue-900">
+          <h2 className="text-lg font-bold uppercase tracking-wide justify-center flex w-full">
+            TICKET 
+          </h2>
           <button
-            className="px-3 py-1 bg-green-600 rounded text-white text-sm cursor-pointer"
-            onClick={() => updateStatus("open")}
+            className="text-white hover:text-red-300 font-extrabold text-xl cursor-pointer"
+            onClick={onClose}
           >
-            Open
-          </button>
-
-          <button
-            className="px-3 py-1 bg-yellow-600 rounded text-white text-sm cursor-pointer"
-            onClick={() => updateStatus("in_progress")}
-          >
-            In Progress
-          </button>
-
-          <button
-            className="px-3 py-1 bg-red-600 rounded text-white text-sm cursor-pointer"
-            onClick={() => updateStatus("closed")}
-          >
-            Close
+            X
           </button>
         </div>
-        </div>
 
-        <hr className="border-neutral-700 my-3" />
+        <div className="p-6">
+          <div className="space-y-3 mb-4 p-4 bg-white border-2 border-gray-300 rounded-md shadow-inner text-gray-800">
+            <h3 className="text-xl font-extrabold text-blue-700 border-b border-gray-300 pb-1">
+              {ticket.title}
+            </h3>
+            <p className="text-sm italic"> Description: {ticket.description}</p>
 
-        <h3 className="font-bold text-lg mb-2">Comments</h3>
+            <p className="text-sm">
+              <span className="font-bold text-gray-700">Status:</span>{" "}
+              <span className="uppercase">{ticket.status}</span>
+            </p>
+            <p className="text-sm">
+              <span className="font-bold text-gray-700">Priority:</span>{" "}
+              <span className="uppercase">{ticket.priority}</span>
+            </p>
+            <p className="text-sm">
+              <span className="font-bold text-gray-700">Created by:</span>{" "}
+              {ticket.createdBy}
+            </p>
+            <p className="text-xs text-gray-500">
+              <span className="font-bold">Date:</span>{" "}
+              {new Date(ticket.createdAt).toLocaleString()}
+            </p>
+          </div>
 
-        <div className="space-y-2 max-h-40 overflow-y-auto mb-3 bg-neutral-800 p-2 rounded">
-          {(ticket.comments || []).length === 0 && (
-            <p className="text-sm opacity-70">No comments yet</p>
-          )}
+          <div className="border-t border-gray-300 pt-4 mb-4">
+            <h3 className="font-bold text-lg mb-2 text-gray-800 uppercase tracking-wider">
+              Update Status
+            </h3>
+            <div className="flex gap-3">
+              <button
+                className="px-3 py-1 bg-gradient-to-b from-green-400 to-green-600 text-gray-900 font-bold rounded-md shadow-md border-b-2 border-green-700 active:border-b active:translate-y-0.5 transition-all text-sm uppercase cursor-pointer"
+                onClick={() => updateStatus("open")}
+              >
+                Open
+              </button>
 
-          {(ticket.comments || []).map((c) => (
-            <div key={c.id} className="bg-neutral-700 p-2 rounded text-sm">
-              <p className="font-bold">{c.user}</p>
-              <p>{c.text}</p>
-              <p className="opacity-60 text-xs mt-1">
-                {new Date(c.createdAt).toLocaleString()}
-              </p>
+              <button
+                className="px-3 py-1 bg-gradient-to-b from-yellow-400 to-yellow-600 text-gray-900 font-bold rounded-md shadow-md border-b-2 border-yellow-700 active:border-b active:translate-y-0.5 transition-all text-sm uppercase cursor-pointer"
+                onClick={() => updateStatus("in_progress")}
+              >
+                In Progress
+              </button>
+
+              <button
+                className="px-3 py-1 bg-gradient-to-b from-red-400 to-red-600 text-gray-900 font-bold rounded-md shadow-md border-b-2 border-red-700 active:border-b active:translate-y-0.5 transition-all text-sm uppercase cursor-pointer"
+                onClick={() => updateStatus("closed")}
+              >
+                Close
+              </button>
             </div>
-          ))}
+          </div>
+
+          <div className="border-t border-gray-300 pt-4">
+            <h3 className="font-bold text-lg mb-2 text-gray-800 uppercase tracking-wider">
+              Comments 
+            </h3>
+
+            <div className="space-y-3 max-h-40 overflow-y-auto mb-3 bg-gray-200 p-3 rounded-md border-2 border-gray-300 shadow-inner">
+              {(ticket.comments || []).length === 0 && (
+                <p className="text-sm italic text-gray-600">No comments yet</p>
+              )}
+
+              {(ticket.comments || []).map((c) => (
+                <div
+                  key={c.id}
+                  className="bg-white p-2 rounded-sm border border-gray-300 text-sm"
+                >
+                  <p className="font-extrabold text-blue-700">{c.user}</p>
+                  <p className="text-gray-800">{c.text}</p>
+                  <p className="text-gray-500 text-xs mt-1">
+                    {new Date(c.createdAt).toLocaleString()}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <textarea
+              className="w-full p-2 rounded-md bg-white border-2 border-gray-400 shadow-inner text-gray-800 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-300"
+              placeholder="Write a comment..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+
+            <button
+              className="mt-2 w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border-b-4 border-blue-900 hover:border-blue-700 active:border-b-0 active:translate-y-0.5 shadow-md py-2 rounded-md text-white font-extrabold uppercase tracking-wider transition-all cursor-pointer"
+              onClick={addComment}
+            >
+              Add comment
+            </button>
+          </div>
         </div>
-
-        <textarea
-          className="w-full p-2 rounded bg-neutral-800 border border-neutral-700 text-sm"
-          placeholder="Write a comment..."
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-
-        <button
-          className="mt-2 w-full bg-blue-600 py-2 rounded text-white cursor-pointer hover:bg-blue-400"
-          onClick={addComment}
-        >
-          Add comment
-        </button>
-
       </div>
     </div>
   );

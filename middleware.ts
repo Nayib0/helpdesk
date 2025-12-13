@@ -2,38 +2,41 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const cookie = req.cookies.get("auth-session")?.value;
+  const userCookie = req.cookies.get("user");
+  const pathname = req.nextUrl.pathname;
 
-  if (!cookie) {
-    if (req.nextUrl.pathname.startsWith("/client") ||
-        req.nextUrl.pathname.startsWith("/agent")) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-    return NextResponse.next();
-  }
-
-  const parsed = JSON.parse(cookie).user;
-  if (!parsed) {
+  // Si no hay cookie y no está en login → redirigir a login
+  if (!userCookie && pathname !== "/login") {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  const role = parsed.role;
-
-  if (req.nextUrl.pathname.startsWith("/client") && role !== "client") {
-    return NextResponse.redirect(new URL("/agent", req.url));
+  // Si hay cookie y está en login → redirigir a dashboard
+  if (userCookie && pathname === "/login") {
+    try {
+      const user = JSON.parse(userCookie.value);
+      return NextResponse.redirect(new URL(`/${user.role}`, req.url));
+    } catch {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
   }
 
-  if (req.nextUrl.pathname.startsWith("/agent") && role !== "agent") {
-    return NextResponse.redirect(new URL("/client", req.url));
-  }
-
-  if (req.nextUrl.pathname.startsWith("/login")) {
-    return NextResponse.redirect(new URL(`/${role}`, req.url));
+  // Validar rol correcto
+  if (userCookie && (pathname.startsWith("/agent") || pathname.startsWith("/client"))) {
+    try {
+      const user = JSON.parse(userCookie.value);
+      const requiredRole = pathname.startsWith("/agent") ? "agent" : "client";
+      
+      if (user.role !== requiredRole) {
+        return NextResponse.redirect(new URL(`/${user.role}`, req.url));
+      }
+    } catch {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/client/:path*", "/agent/:path*", "/login"],
+  matcher: ["/", "/login", "/agent/:path*", "/client/:path*"],
 };

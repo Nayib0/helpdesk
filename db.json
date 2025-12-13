@@ -2,72 +2,72 @@
   "users": [
     {
       "id": "1",
-      "name": "Test Client",
-      "email": "cliente@example.com",
-      "password": "admin1234",
+      "name": "Nayib Obeso",
+      "email": "client@example.com",
+      "password": "client1234",
       "role": "client"
     },
     {
       "id": "2",
-      "name": "Test Agent",
+      "name": "Alex Martinez",
       "email": "agent@example.com",
-      "password": "admin1234",
+      "password": "agent1234",
       "role": "agent"
     }
   ],
   "tickets": [
     {
-      "id": "1",
-      "title": "Login error",
-      "description": "Cannot log in",
-      "priority": "high",
-      "status": "in_progress",
-      "createdBy": 1,
-      "assignedTo": null,
-      "createdAt": "2025-02-20T12:00:00",
+      "id": "cbae",
+      "title": "primera de muchos",
+      "description": "segunda",
+      "priority": "medium",
+      "createdBy": "1",
+      "createdAt": "2025-12-12T22:25:00.000Z",
+      "status": "open",
       "comments": [
         {
-          "id": 1,
-          "user": "Agent 2",
-          "text": "I'm reviewing the case",
-          "createdAt": "2025-02-20T14:00:00"
+          "id": 1765583581765,
+          "user": "Agent 1",
+          "text": "sala",
+          "createdAt": "2025-12-12T23:53:01.765Z"
         },
         {
-          "id": 2,
-          "user": "Test Client",
-          "text": "Thank you!",
-          "createdAt": "2025-02-20T15:00:00"
+          "id": 1765583602673,
+          "user": "Agent 1",
+          "text": "sala",
+          "createdAt": "2025-12-12T23:53:22.673Z"
         }
       ]
     },
     {
-      "id": "2",
-      "title": "Page not loading",
-      "description": "The page is not loading correctly",
+      "id": "4418",
+      "title": "solo",
+      "description": "as",
       "priority": "medium",
+      "createdBy": "1",
+      "createdAt": "2025-12-12T22:32:34.343Z",
       "status": "closed",
-      "createdBy": 1,
-      "assignedTo": null,
-      "createdAt": "2025-02-20T16:00:00",
       "comments": []
     },
     {
-      "id": "3",
-      "title": "Feature request",
-      "description": "Please add dark mode",
-      "priority": "low",
+      "id": "7353",
+      "title": "hola bebe",
+      "description": "baba",
+      "priority": "medium",
+      "createdBy": "1",
+      "createdAt": "2025-12-12T23:31:14.670Z",
       "status": "open",
-      "createdBy": 1,
-      "assignedTo": null,
-      "createdAt": "2025-02-21T10:00:00",
-      "comments": [
-        {
-          "id": 1765555201278,
-          "user": "Agent 1",
-          "text": "faltan detalles",
-          "createdAt": "2025-12-12T16:00:01.278Z"
-        }
-      ]
+      "comments": []
+    },
+    {
+      "id": "3487",
+      "title": "hola",
+      "description": "ga",
+      "priority": "medium",
+      "createdBy": "AGENT_ID_TEMPORAL",
+      "createdAt": "2025-12-12T23:42:29.185Z",
+      "status": "open",
+      "comments": []
     }
   ]
 }
