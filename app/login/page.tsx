@@ -102,10 +102,10 @@ export default function LoginPage() {
                 disabled={loading}
                 className={`w-full text-white font-extrabold py-3 rounded-md transition-all uppercase tracking-wider cursor-pointer
                   ${
-                  loading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border-b-4 border-blue-900 hover:border-blue-700 active:border-b-0 active:translate-y-0.5 shadow-lg"
-                }`}
+                    loading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border-b-4 border-blue-900 hover:border-blue-700 active:border-b-0 active:translate-y-0.5 shadow-lg"
+                  }`}
               >
                 {loading ? "ACCESSING..." : "ACCESS SYSTEM"}
               </button>
@@ -113,7 +113,7 @@ export default function LoginPage() {
 
             <div className="mt-6 p-4 bg-gray-300 border-2 border-blue-500 rounded-md shadow-md text-xs">
               <p className="font-extrabold mb-1 text-blue-700">
-                 TEST MODE ACTIVE
+                TEST MODE ACTIVE
               </p>
               <p className="text-gray-800">
                 Agent ID:{" "}
@@ -137,9 +137,7 @@ export default function LoginPage() {
           <div className="w-full h-4 bg-gray-900 border border-green-400 mt-4 overflow-hidden">
             <div className="bg-green-600 h-full w-3/4 animate-none transition-all"></div>
           </div>
-          <p className="text-sm text-gray-500 font-mono mt-1">
-            Conecting
-          </p>
+          <p className="text-sm text-gray-500 font-mono mt-1">Conecting</p>
         </div>
       </div>
     </div>

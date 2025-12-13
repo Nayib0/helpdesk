@@ -40,7 +40,7 @@ export default function AgentDashboard() {
     <div className="p-6 max-w-4xl mx-auto rounded-lg bg-gray-100 shadow-xl border-4 border-gray-400 mt-5">
       <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-3 rounded-t-md shadow-inner border-b-4 border-blue-900">
         <h1 className="text-2xl font-bold tracking-wide uppercase">
-          Agent Console 
+          Agent Console
         </h1>
 
         <button

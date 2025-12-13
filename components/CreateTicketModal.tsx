@@ -30,12 +30,12 @@ export default function CreateTicketModal({
     setError("");
 
     if (!form.title.trim()) {
-      setError("El título es obligatorio.");
+      setError("The title is required.");
       return;
     }
 
     if (!form.description.trim()) {
-      setError("La descripción es obligatoria.");
+      setError("The description is mandatory.");
       return;
     }
 

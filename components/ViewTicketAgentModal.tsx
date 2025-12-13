@@ -50,12 +50,10 @@ export default function ViewTicketAgentModal({
 
   return (
     <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm flex justify-center items-center p-4">
-      {/* Contenedor Principal: Estilo de ventana de diálogo de sistema */}
       <div className="bg-gray-100 w-full max-w-lg rounded-lg shadow-2xl border-4 border-gray-400 overflow-hidden">
-        {/* Header: Barra de título de la ventana */}
         <div className="flex justify-between items-center bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2 border-b-2 border-blue-900">
           <h2 className="text-lg font-bold uppercase tracking-wide justify-center flex w-full">
-            TICKET 
+            TICKET
           </h2>
           <button
             className="text-white hover:text-red-300 font-extrabold text-xl cursor-pointer"
@@ -120,7 +118,7 @@ export default function ViewTicketAgentModal({
 
           <div className="border-t border-gray-300 pt-4">
             <h3 className="font-bold text-lg mb-2 text-gray-800 uppercase tracking-wider">
-              Comments 
+              Comments
             </h3>
 
             <div className="space-y-3 max-h-40 overflow-y-auto mb-3 bg-gray-200 p-3 rounded-md border-2 border-gray-300 shadow-inner">

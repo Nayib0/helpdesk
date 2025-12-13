@@ -29,9 +29,7 @@ export default function ViewTicketModal({
 
   return (
     <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm flex justify-center items-center p-4">
-      {/* Contenedor Principal: Estilo de ventana de diálogo de sistema */}
       <div className="bg-gray-100 w-full max-w-sm rounded-lg shadow-2xl border-4 border-gray-400 overflow-hidden">
-        {/* Header: Barra de título de la ventana */}
         <div className="flex justify-between items-center bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2 border-b-2 border-blue-900">
           <h2 className="text-lg font-bold uppercase tracking-wide">
             TICKET DETAIL
@@ -44,7 +42,6 @@ export default function ViewTicketModal({
           </button>
         </div>
 
-        {/* Contenido del Modal */}
         <div className="p-6">
           <h2 className="text-xl font-extrabold mb-3 text-gray-800 border-b border-gray-300 pb-1">
             {ticket.title}
@@ -78,7 +75,6 @@ export default function ViewTicketModal({
 
             {ticket.status !== "open" && (
               <button
-                // Botón 3D con color vibrante
                 className="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 border-b-4 border-green-700 hover:border-green-500 active:border-b-0 active:translate-y-0.5 shadow-md w-full py-2 rounded-md text-gray-900 font-bold transition-all uppercase text-sm cursor-pointer"
                 onClick={() => updateStatus("open")}
               >

@@ -14,10 +14,11 @@ interface AuthState {
   logout: () => void;
 }
 
-// Helper para cookies
 function setCookie(name: string, value: string) {
   if (typeof window !== "undefined") {
-    document.cookie = `${name}=${encodeURIComponent(value)};path=/;max-age=86400`;
+    document.cookie = `${name}=${encodeURIComponent(
+      value
+    )};path=/;max-age=86400`;
   }
 }
 
@@ -29,16 +30,15 @@ function deleteCookie(name: string) {
 
 function getCookie(name: string): string | null {
   if (typeof window === "undefined") return null;
-  
+
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) {
-    return decodeURIComponent(parts.pop()?.split(';').shift() || '');
+    return decodeURIComponent(parts.pop()?.split(";").shift() || "");
   }
   return null;
 }
 
-// Inicializar el estado desde la cookie al cargar
 function getInitialState(): User | null {
   const userCookie = getCookie("user");
   if (userCookie) {
@@ -53,7 +53,7 @@ function getInitialState(): User | null {
 
 export const useAuth = create<AuthState>((set) => ({
   user: getInitialState(),
-  
+
   setUser: (user) => {
     set({ user });
     if (user) {
@@ -62,7 +62,7 @@ export const useAuth = create<AuthState>((set) => ({
       deleteCookie("user");
     }
   },
-  
+
   logout: () => {
     set({ user: null });
     deleteCookie("user");
